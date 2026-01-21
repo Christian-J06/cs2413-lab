@@ -8,6 +8,7 @@ int main(void) {
     printf("R#: ****XXXXX\n");
     printf("Section: XXX\n");
     printf("Message: I can use GitHub for CS2413 labs!\n");
+    printf("I have made a change!\n");
 
     return 0;
 
