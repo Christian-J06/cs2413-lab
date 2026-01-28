@@ -7,6 +7,7 @@ int main(void) {
     printf("Section: 002\n");
     printf("Message: I can use GitHub for CS2413 labs!\n");
     printf("I have made a change!\n");
+    printf("Written in VS Code terminal");
 
     return 0;
 
