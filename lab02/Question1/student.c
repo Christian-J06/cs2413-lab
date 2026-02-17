@@ -1,6 +1,6 @@
 // Question1/Student.c
 // ------------------------------------------------------------
-// CS Lab - Valid Parentheses (STACK PRACTICE)
+// cS Lab - Valid Parentheses (STAcK PRAcTIcE)
 //
 // Task:
 // Implement `isValid(const char *s)`.
@@ -24,7 +24,7 @@
 //   make run1
 // ------------------------------------------------------------
 
-#include "Student.h"
+#include "student.h"
 #include <stdbool.h>
 #include <stddef.h>  // size_t
 #include <string.h>  // strlen
@@ -47,13 +47,59 @@ bool isValid(const char *s) {
     //   ']' matches '['
     //   '}' matches '{'
     //
-    // Corner cases:
+    // corner cases:
     // - s == NULL -> return false
     // - odd length strings can’t be valid 
     //
     // Note:
     // - Input contains only bracket characters, per the prompt.
 
-    (void)s; // remove after implementing
-    return false; // placeholder
+
+    if (s == NULL) {
+        return false;
+    }
+
+    if (strlen(s) % 2 == 1) {
+        return false;
+    }
+
+    if (strlen(s) == 0) {
+        return true;
+    }
+
+    char stack[strlen(s)];
+    size_t top = 0;
+    size_t i;
+
+
+    for (i = 0; i < strlen(s); i++) {
+
+        char c = s[i];
+
+        if (c ==  '(' || c ==  '{' || c ==  '[') {
+            stack[top] = c;
+            top++;
+        }
+
+        else {
+            if (top == 0)
+            return false;
+
+            char open = stack[top - 1];
+
+            if ((c == ')' && open == '(') || (c == ']' && open == '[') || (c == '}' && open == '{')) {
+                top--;
+            
+            } else {
+                return false;
+            }
+        }
+        
+    }
+
+
+
+    
+    //(void)s; // remove after implementing
+    return top == 0; // placeholder
 }
