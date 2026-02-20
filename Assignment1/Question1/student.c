@@ -1,4 +1,4 @@
-#include "Student.h"
+#include "student.h"
 
 //You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n:
 //nums1 has length m + n
@@ -17,6 +17,19 @@ void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
 
  // TODO: implement
 
+	if (nums2Size <= 0) return;
 
+	int i = m - 1;     //nums1 pointer
+	int nums2End = (n == nums2Size) ? n : nums2Size; // end of nums2 arr
+	int j = nums2End - 1;             // last element in nums2 (uses nums2Size or n)
+	int k = nums1Size - 1;         // last position in nums1 (uses nums1Size)
+
+	while (j >= 0) {
+		if (i >= 0 && nums1[i] > nums2[j]) {
+			nums1[k--] = nums1[i--];
+		} else {
+			nums1[k--] = nums2[j--];
+		}
+	}
 
 }
