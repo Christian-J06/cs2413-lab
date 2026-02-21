@@ -42,15 +42,30 @@ Function to implement:
 Description: Given a singly linked list, swap every two adjacent nodes
 and return the new head.
 
-IMPORTANT: - You must swap nodes by changing pointers. - Do NOT swap
-node values. - Do NOT allocate new nodes. - Time complexity: O(n) -
-Space complexity: O(1)
+IMPORTANT: - You must swap nodes (rewire pointers) - Do NOT swap
+values - Do NOT allocate new nodes - O(n) time, O(1) space
 
-Example:
+  -------------------------
+  Example A (Even Length)
+  -------------------------
 
 Input: 1 -\> 2 -\> 3 -\> 4 -\> NULL
 
+Step-by-step pairing: (1,2) (3,4)
+
 Output: 2 -\> 1 -\> 4 -\> 3 -\> NULL
+
+  ------------------------
+  Example B (Odd Length)
+  ------------------------
+
+Input: 1 -\> 2 -\> 3 -\> 4 -\> 5 -\> NULL
+
+Pairs: (1,2) (3,4) 5
+
+Output: 2 -\> 1 -\> 4 -\> 3 -\> 5 -\> NULL
+
+Notice: If the number of nodes is odd, the last node remains unchanged.
 
 Command to test:
 
@@ -88,13 +103,25 @@ Description: Return the value of the middle node.
 
 If the list has an even number of nodes, return the SECOND middle node.
 
-Example:
+If the list has EVEN number of nodes, return the SECOND middle node.
+
+  ------------------------
+  Example A (Odd Length)
+  ------------------------
+
+Input: 1 -\> 2 -\> 3 -\> 4 -\> 5 -\> NULL
+
+Middle: 3
+
+  ------------------------------------
+  Example B (Even Length -- 4 Nodes)
+  ------------------------------------
 
 Input: 1 -\> 2 -\> 3 -\> 4 -\> NULL
 
-Output: 3
+Positions: 1 2 3 4 ↑ ↑ first second
 
-Explanation: Two middle nodes are 2 and 3. Return the second one (3).
+Two middle nodes: 2 and 3 Return the SECOND middle → 3
 
 Hints: - Use fast/slow pointer technique. - Do NOT allocate new
 nodes. - Time complexity: O(n) - Space complexity: O(1)
