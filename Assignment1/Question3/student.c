@@ -1,4 +1,4 @@
-#include "Student.h"
+#include "student.h"
 #include <stdlib.h>
 
 //You are given a large integer represented as an integer array digits, where:
@@ -26,8 +26,47 @@
 //Output parameter (returnSize): set *returnSize to the number of digits in the returned array.
 
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
-    // TODO: implement
-
+    // Find the rightmost non-9 digit
+    int i;
+    for (i = digitsSize - 1; i >= 0; i--) {
+        if (digits[i] < 9) {
+            break;
+        }
+    }
     
+    // Case 1: If all given digits are 9
+    if (i == -1) {
+        int* result = (int*)malloc((digitsSize + 1) * sizeof(int));
+        if (!result) {
+            *returnSize = 0;
+            return NULL;
+        }
+        result[0] = 1;
+        for (int j = 1; j <= digitsSize; j++) {
+            result[j] = 0;
+        }
+        *returnSize = digitsSize + 1;
+        return result;
+    }
+    
+    // Case 2: Add 1 and find resulting integer
+    
+    int* result = (int*)malloc(digitsSize * sizeof(int));
+    if (!result) {
+        *returnSize = 0;
+        return NULL;
+    }
+    
+    for (int j = 0; j < digitsSize; j++) {
+        result[j] = digits[j];
+    }
+    
+    result[i]++; 
+    for (int j = i + 1; j < digitsSize; j++) {
+        result[j] = 0;
+    }
+    
+    *returnSize = digitsSize;
+    return result;
 }
 
