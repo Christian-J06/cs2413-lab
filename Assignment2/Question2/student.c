@@ -21,18 +21,29 @@
 
 #include <stdbool.h>
 #include <stddef.h>
-
+#include <limits.h>
 struct TreeNode {
     int val;
     struct TreeNode *left;
     struct TreeNode *right;
 };
 
+static int checkAVL(struct TreeNode *node, long min, long max) {
+    if (node == NULL) return 0;
+    // enforce strict BST property
+    if (node->val <= min || node->val >= max) {
+        return -1;
+    }
+    int lh = checkAVL(node->left, min, node->val);
+    if (lh == -1) return -1;
+    int rh = checkAVL(node->right, node->val, max);
+    if (rh == -1) return -1;
+    if (lh - rh > 1 || rh - lh > 1) {
+        return -1;
+    }
+    return 1 + (lh > rh ? lh : rh);
+}
+
 bool isAVL(struct TreeNode* root) {
-    // TODO: implement
-    // Hint: One common O(n) approach:
-    // - Use a recursive helper that returns the subtree height,
-    //   and returns -1 if subtree is invalid (BST violation or unbalanced).
-    (void)root;
-    return false;
+    return checkAVL(root, LONG_MIN, LONG_MAX) != -1;
 }
