@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdlib.h>
 
 /*
 Question 3: Sum Root to Leaf Numbers
@@ -57,5 +58,64 @@ struct TreeNode {
 
 
 int sumNumbers(struct TreeNode* root) {
-      // TODO: implement
+
+    if (root == NULL) {
+        return 0;
+    }
+
+    struct StackItem {
+        struct TreeNode* node;
+        int current;
+    };
+
+    int capacity = 64;
+    int top = 0;
+    struct StackItem* stack = (struct StackItem*)malloc(capacity * sizeof(struct StackItem));
+    
+    if (stack == NULL) {
+        return 0; // fallback on allocation failure
+    }
+
+    int total = 0;
+    stack[top++] = (struct StackItem){ .node = root, .current = 0 };
+
+    while (top > 0) {
+        struct StackItem item = stack[--top];
+        struct TreeNode* node = item.node;
+        int current = item.current * 10 + node->val;
+
+        if (node->left == NULL && node->right == NULL) {
+            total += current;
+            continue;
+        }
+
+        if (node->right != NULL) {
+            if (top >= capacity) {
+                capacity *= 2;
+                struct StackItem* new_stack = (struct StackItem*)realloc(stack, capacity * sizeof(struct StackItem));
+                if (new_stack == NULL) {
+                    free(stack);
+                    return total;
+                }
+                stack = new_stack;
+            }
+            stack[top++] = (struct StackItem){ .node = node->right, .current = current };
+        }
+
+        if (node->left != NULL) {
+            if (top >= capacity) {
+                capacity *= 2;
+                struct StackItem* new_stack = (struct StackItem*)realloc(stack, capacity * sizeof(struct StackItem));
+                if (new_stack == NULL) {
+                    free(stack);
+                    return total;
+                }
+                stack = new_stack;
+            }
+            stack[top++] = (struct StackItem){ .node = node->left, .current = current };
+        }
+    }
+
+    free(stack);
+    return total;
 }
