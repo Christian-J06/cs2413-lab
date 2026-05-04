@@ -21,6 +21,17 @@ Notes:
 
 void insertionSort(int arr[], int size) {
     // TODO: implement insertion sort
-    (void)arr;
-    (void)size;
+    for (int i = 1; i < size; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        
+        // Shift all elements greater than key one position to the right
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        
+        // Insert key in its correct position
+        arr[j + 1] = key;
+    }
 }
